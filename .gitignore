@@ -40,5 +40,9 @@ build/
 
 .allure/
 
+# НЕ игнорировать папку с отчётом Allure
+!allure-report/
+!allure-report/**
 
 *.log
+!src/test/resources/yandexdriver.exe
