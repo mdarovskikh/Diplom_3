@@ -44,4 +44,12 @@ public class LoginPage extends BasePage {
     public void clickLoginLinkOnRestorePage() {
         click(loginLinkOnRegisterPage);
     }
+
+    /**
+     * Проверяет, что мы находимся на странице входа
+     * Признак наличие кнопки «Войти» на странице
+     */
+    public boolean isLoginPageOpened() {
+        return isElementDisplayed(loginButton);
+    }
 }

@@ -16,7 +16,7 @@ public final class UserDataGenerator {
     public static String uniqueEmail() {
         long timestamp = System.currentTimeMillis();
         String uuid = UUID.randomUUID().toString().substring(0, 8);
-        return "puh" + timestamp + "@example.com";
+        return "puh_" + timestamp + "_" + uuid + "@example.com";
     }
 
     /**

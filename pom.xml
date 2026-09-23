@@ -17,10 +17,12 @@
         <allure.version>2.24.0</allure.version>
         <webdrivermanager.version>5.6.2</webdrivermanager.version>
         <aspectj.version>1.9.20.1</aspectj.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
+        <gson.version>2.10.1</gson.version>
     </properties>
 
     <dependencies>
-        <!-- Selenium WebDriver -->
+        <!-- Selenium WebDriver — управление браузером -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -36,7 +38,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- WebDriverManager — автоматически скачивает драйверы браузеров -->
+        <!-- WebDriverManager — автоматическая установка драйверов браузеров -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -44,7 +46,23 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Allure JUnit 4 -->
+        <!-- REST Assured — работа с API (создание/удаление пользователей) -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Gson — сериализация объектов в JSON для REST Assured -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Allure JUnit 4 — отчётность -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit4</artifactId>

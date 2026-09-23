@@ -1,8 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,7 +26,12 @@ public class BasePage {
 
     /** Ждёт элемент и кликает */
     public void click(By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        try {
+            element.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
     }
 
     /** Ждёт видимости поля ввода и вводит текст */
@@ -43,7 +46,7 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
-    /** Проверяет, отображается ли элемент. */
+    /** Проверяет, отображается ли элемент */
     public boolean isElementDisplayed(By locator) {
         try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
@@ -52,7 +55,7 @@ public class BasePage {
         }
     }
 
-    /** Ждёт, пока URL будет содержать указанную подстроку. */
+    /** Ждёт, пока URL будет содержать указанную подстроку */
     public void waitForUrlContains(String urlPart) {
         wait.until(ExpectedConditions.urlContains(urlPart));
     }
