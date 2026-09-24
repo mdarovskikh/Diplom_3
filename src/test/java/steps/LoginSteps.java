@@ -30,21 +30,21 @@ public class LoginSteps {
 
     @Step("Клик по кнопке «Личный кабинет»")
     public void clickAccountButton(MainPage mainPage) {
-        mainPage.clickLoginButton();
+        mainPage.clickAccountButton();
     }
 
     @Step("Перейти к логину из формы регистрации")
     public void goToLoginFromRegisterForm() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickRegisterLink();
-        loginPage.clickLoginLink();
+        loginPage.clickLoginLinkOnRegisterPage();
     }
 
     @Step("Перейти к логину из формы восстановления пароля")
     public void goToLoginFromRestoreForm() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickRestorePasswordLink();
-        loginPage.clickLoginLink();
+        loginPage.clickLoginLinkOnRestorePage();
     }
 
     @Step("Войти с email={email}")
