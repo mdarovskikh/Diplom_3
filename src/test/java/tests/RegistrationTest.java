@@ -2,10 +2,12 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.Before;
 import org.junit.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.RegisterPage;
+import steps.RegistrationSteps;
 import utils.UserDataGenerator;
 
 import static org.junit.Assert.assertTrue;
@@ -15,8 +17,15 @@ import static org.junit.Assert.assertTrue;
  * Создаёт уникального пользователя для каждого теста
  */
 public class RegistrationTest extends BaseTest {
+    private RegistrationSteps registrationSteps;
+
+    @Before
+    public void initSteps() {
+        registrationSteps = new RegistrationSteps(driver);
+    }
+
     /**
-     * Успешная регистрация нового пользователя.
+     * Успешная регистрация нового пользователя
      */
     @Test
     @DisplayName("Успешная регистрация")
@@ -26,18 +35,10 @@ public class RegistrationTest extends BaseTest {
         String name = UserDataGenerator.uniqueName();
         String password = UserDataGenerator.validPassword();
 
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.clickLoginButton();
-
-        new pages.LoginPage(driver).clickRegisterLink();
-
-        RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register(name, email, password);
-
-        LoginPage loginPage = new LoginPage(driver);
-        assertTrue("После регистрации не открылась страница входа",
-                loginPage.isLoginPageOpened());
+        MainPage mainPage = registrationSteps.openMainPage();
+        registrationSteps.goToRegisterPage(mainPage);
+        registrationSteps.fillAndSubmitForm(name, email, password);
+        registrationSteps.assertLoginPageOpened();
     }
 
     /**
@@ -51,14 +52,9 @@ public class RegistrationTest extends BaseTest {
         String name = UserDataGenerator.uniqueName();
         String password = UserDataGenerator.invalidPassword();
 
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.clickLoginButton();
-
-        new pages.LoginPage(driver).clickRegisterLink();
-
-        RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register(name, email, password);
-        assertTrue("Сообщение об ошибке пароля не появилось", registerPage.isPasswordErrorDisplayed());
+        MainPage mainPage = registrationSteps.openMainPage();
+        registrationSteps.goToRegisterPage(mainPage);
+        registrationSteps.fillAndSubmitForm(name, email, password);
+        registrationSteps.assertPasswordErrorShown();
     }
 }

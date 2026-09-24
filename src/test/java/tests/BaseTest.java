@@ -33,8 +33,6 @@ public class BaseTest {
     private static final String YANDEX_DRIVER_RESOURCE = "yandexdriver.exe";
     protected WebDriver driver;
     protected UserApiClient userApiClient = new UserApiClient();
-
-    protected String createdUserEmail;
     protected String createdUserAccessToken;
 
     /**

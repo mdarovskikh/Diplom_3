@@ -2,46 +2,46 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.Before;
 import org.junit.Test;
 import pages.MainPage;
+import steps.ConstructorSteps;
 
-import static org.junit.Assert.assertTrue;
 
 /**
  * Тесты для раздела «Конструктор»
  * Проверяют переключение вкладок «Булки», «Соусы», «Начинки»
  */
 public class ConstructorTest extends BaseTest {
+    private ConstructorSteps constructorSteps;
+    @Before
+    public void initSteps() {
+        constructorSteps = new ConstructorSteps(driver);
+    }
     @Test
     @DisplayName("Вкладка «Булки»")
     @Description("Переход на вкладку «Булки»")
     public void switchToBunsTabTest() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.clickBunsTab();
-
-        assertTrue("Вкладка «Булки» не активна", mainPage.isBunsTabActive());
+        MainPage mainPage = constructorSteps.openMainPage();
+        constructorSteps.switchToTab(mainPage, "Булки");
+        constructorSteps.assertTabActive(mainPage, "Булки");
     }
 
     @Test
     @DisplayName("Вкладка «Соусы»")
     @Description("Переход на вкладку «Соусы»")
     public void switchToSaucesTabTest() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.clickSaucesTab();
-
-        assertTrue("Вкладка «Соусы» не активна", mainPage.isSaucesTabActive());
+        MainPage mainPage = constructorSteps.openMainPage();
+        constructorSteps.switchToTab(mainPage, "Соусы");
+        constructorSteps.assertTabActive(mainPage, "Соусы");
     }
 
     @Test
     @DisplayName("Вкладка «Начинки»")
     @Description("Переход на вкладку «Начинки»")
     public void switchToFillingsTabTest() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.clickFillingsTab();
-
-        assertTrue("Вкладка «Начинки» не активна", mainPage.isFillingsTabActive());
+        MainPage mainPage = constructorSteps.openMainPage();
+        constructorSteps.switchToTab(mainPage, "Начинки");
+        constructorSteps.assertTabActive(mainPage, "Начинки");
     }
 }
