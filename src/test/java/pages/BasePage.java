@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -8,6 +9,7 @@ import java.time.Duration;
 
 /**
  * Базовый класс для всех Page Object
+ * Все методы — шаги, помечены @Step для Allure-отчёта
  */
 public class BasePage {
     protected WebDriver driver;
@@ -20,11 +22,12 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    @Step("Открыть URL: {url}")
     public void open(String url) {
         driver.get(url);
     }
 
-    /** Ждёт элемент и кликает */
+    @Step("Клик по элементу")
     public void click(By locator) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         try {
@@ -34,19 +37,19 @@ public class BasePage {
         }
     }
 
-    /** Ждёт видимости поля ввода и вводит текст */
+    @Step("Ввести текст в поле")
     public void type(By locator, String text) {
         WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         field.clear();
         field.sendKeys(text);
     }
 
-    /** Ждёт элемент и возвращает его текст */
+    @Step("Получить текст элемента")
     public String getText(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
-    /** Проверяет, отображается ли элемент */
+    @Step("Проверить, что элемент отображается")
     public boolean isElementDisplayed(By locator) {
         try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
@@ -55,7 +58,7 @@ public class BasePage {
         }
     }
 
-    /** Ждёт, пока URL будет содержать указанную подстроку */
+    @Step("Дождаться, пока URL содержит: {urlPart}")
     public void waitForUrlContains(String urlPart) {
         wait.until(ExpectedConditions.urlContains(urlPart));
     }
